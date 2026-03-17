@@ -107,7 +107,7 @@ function limpiarHistorial() {
 function formatResult(n) {
   if (n === null) return ''
   if (n === 0) return '0'
-  return parseFloat(n.toFixed(6)).toString()
+  return parseFloat(n.toFixed(2)).toString() 
 }
 
 const displayResult = computed(() =>
