@@ -34,7 +34,7 @@ const categories = {
   }
 }
 
-// ── Variables reactivas ───────────────────────────────────────────────
+// ── Variables reactivas ─────────
 const activeCategory = ref('longitud')  // 1
 const fromUnit       = ref('km')        // 2
 const toUnit         = ref('m')         // 3
@@ -72,7 +72,7 @@ function convert() {
     result.value = base / currentUnits.value[toUnit.value].factor
   }
 
-  // Guardar en historial
+  // Guardar en historial DESPUÉS de asignar result.value
   const fromLabel = currentUnits.value[fromUnit.value].label.split(' ')[0]
   const toLabel   = currentUnits.value[toUnit.value].label.split(' ')[0]
   historial.value.unshift({
@@ -107,7 +107,7 @@ function limpiarHistorial() {
 function formatResult(n) {
   if (n === null) return ''
   if (n === 0) return '0'
-  return parseFloat(n.toFixed(2)).toString() 
+  return parseFloat(n.toFixed(2)).toString()
 }
 
 const displayResult = computed(() =>
@@ -221,7 +221,7 @@ const resultUnit = computed(() =>
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
 .converter {
-  width: 320px;
+  width: 420px;
   border-radius: 28px;
   background: #18181d;
   box-shadow: 0 30px 80px rgba(0,0,0,.7), 0 0 0 1px #2a2a33;
@@ -328,6 +328,7 @@ select {
   cursor: pointer;
   transition: border-color .2s;
   appearance: none;
+  -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a7a8a' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right .6rem center;
@@ -362,6 +363,8 @@ select option { background: #1f1f26; }
   justify-content: flex-end;
   gap: .5rem;
   min-height: 64px;
+  flex-wrap: nowrap;
+  overflow: hidden;
 }
 .result-value {
   font-family: 'Syne', sans-serif;
@@ -369,7 +372,8 @@ select option { background: #1f1f26; }
   font-weight: 800;
   color: #c8f058;
   letter-spacing: -1px;
-  word-break: break-all;
+  white-space: nowrap;
+  word-break: keep-all;
   text-align: right;
 }
 .result-unit { font-size: .82rem; color: #7a7a8a; white-space: nowrap; }
